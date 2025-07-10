@@ -1,0 +1,172 @@
+<section
+  class="w-full bg-gradient-to-br from-[#e7f9ee] via-[#f5fdf3] to-[#ffffff] py-20 relative overflow-hidden"
+  dir="rtl"
+>
+  <!-- زخارف دائرية -->
+  <div
+    class="absolute top-0 left-0 w-40 h-40 bg-[#86efac]/30 rounded-full blur-2xl -z-10"
+  ></div>
+  <div
+    class="absolute bottom-0 right-0 w-32 h-32 bg-[#fde68a]/40 rounded-full blur-2xl -z-10"
+  ></div>
+
+  <!-- عنوان -->
+  <div class="max-w-[750px] mx-auto text-center mb-12 relative z-10 px-4">
+    <h1
+      class="text-4xl md:text-5xl font-extrabold text-[#16a34a] mb-4 leading-relaxed"
+    >
+      اعثر على المعلم المناسب لك
+    </h1>
+    <p class="text-xl text-[#ca8a04]">آلاف المعلمين في خدمتك</p>
+  </div>
+
+  <!-- فورم البحث -->
+  <!-- <div class="max-w-4xl mx-auto px-4 mb-14">
+    <form
+      [formGroup]="searchForm"
+      (ngSubmit)="onSearch()"
+      class="flex flex-col md:flex-row gap-4 items-center justify-center"
+    >
+      <input
+        formControlName="query"
+        type="text"
+        placeholder="ماذا تريد أن تتعلم؟"
+        class="w-full md:w-1/2 px-4 py-3 rounded-lg border border-[#86efac] focus:outline-none focus:ring-2 focus:ring-[#4ade80] bg-white shadow-sm text-right"
+      />
+      <input
+        formControlName="location"
+        type="text"
+        placeholder="الموقع (اختياري)"
+        class="w-full md:w-1/3 px-4 py-3 rounded-lg border border-[#86efac] focus:outline-none focus:ring-2 focus:ring-[#4ade80] bg-white shadow-sm text-right"
+      />
+      <button
+        type="submit"
+        class="bg-[#16a34a] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#a3e635] hover:text-[#14532d] transition"
+      >
+        ابحث الآن
+      </button>
+    </form>
+  </div> -->
+
+  <!-- فورم الفلاتر -->
+  <div
+    class="max-w-6xl mx-auto bg-white/80 backdrop-blur-md p-8 rounded-2xl shadow-lg relative z-10 border border-[#d9fbe2]"
+  >
+    <form
+      *ngIf="filterForm"
+      [formGroup]="filterForm"
+      (ngSubmit)="applyFilters()"
+      class="grid gap-8 md:grid-cols-3 xl:grid-cols-4 items-start"
+    >
+      <div
+        *ngFor="let filter of filters"
+        class="bg-white p-4 rounded-xl shadow flex flex-col gap-3 border border-[#e6f7eb]"
+      >
+        <label class="text-[#16a34a] font-bold text-lg">{{
+          filter.label
+        }}</label>
+
+        <!-- Radio Group -->
+        <div *ngIf="filter.type === 'radio'" class="space-y-2">
+          <div *ngFor="let opt of filter.options" class="flex items-center">
+            <input
+              type="radio"
+              [formControlName]="filter.name"
+              [value]="opt.value"
+              class="ml-2 accent-[#16a34a] w-4 h-4"
+              id="{{ filter.name }}-{{ opt.value }}"
+            />
+            <label [for]="filter.name + '-' + opt.value" class="text-gray-600">
+              {{ opt.label }}
+            </label>
+          </div>
+        </div>
+
+        <!-- Checkbox Group -->
+        <div
+          *ngIf="filter.type === 'checkbox'"
+          [formGroupName]="filter.name"
+          class="space-y-2"
+        >
+          <div *ngFor="let opt of filter.options" class="flex items-center">
+            <input
+              type="checkbox"
+              [formControlName]="opt.value"
+              class="ml-2 accent-[#16a34a] w-4 h-4"
+              id="{{ filter.name }}-{{ opt.value }}"
+            />
+            <label [for]="filter.name + '-' + opt.value" class="text-gray-600">
+              {{ opt.label }}
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- أزرار -->
+      <div
+        class="flex flex-col justify-end gap-4 col-span-full md:col-span-1 mt-4"
+      >
+        <button
+          type="submit"
+          class="bg-[#16a34a] text-white py-3 px-5 rounded-lg font-semibold hover:bg-[#a3e635] hover:text-[#14532d] transition"
+        >
+          تطبيق الفلاتر
+        </button>
+        <button
+          type="button"
+          (click)="resetFilters()"
+          class="text-[#ca8a04] underline text-sm font-medium"
+        >
+          إعادة تعيين
+        </button>
+      </div>
+    </form>
+  </div>
+  <!-- الكروت للمعلمين -->
+  <div class="container mx-auto px-5 py-10 lg:px-32">
+  <div class="flex flex-wrap -mx-4">
+    <div class="w-full sm:w-1/2 lg:w-1/3 px-4 mb-8" *ngFor="let teacher of teachers">
+      <div class="bg-white rounded-2xl shadow-md overflow-hidden transition-transform hover:scale-105 duration-300">
+        <!-- الصورة -->
+        <img class="w-full h-56 object-cover" [src]="teacher.image" [alt]="teacher.name" />
+
+        <!-- التفاصيل -->
+        <div class="p-5">
+          <!-- الاسم -->
+          <h3 class="text-xl font-bold text-[#14532d] mb-2">{{ teacher.name }}</h3>
+
+          <!-- السعر -->
+          <p class="text-green-700 font-semibold mb-2">
+            <span class="text-sm text-gray-500">سعر الساعة:</span>
+            {{ teacher.hourlyRate }} جنيه
+          </p>
+
+          <!-- المواد -->
+          <p class="text-sm text-gray-600 mb-1">
+            <span class="font-semibold text-[#15803d]">المواد:</span>
+            {{ teacher.subjects.join(', ') }}
+          </p>
+
+          <!-- اللغات -->
+          <p class="text-sm text-gray-600 mb-1">
+            <span class="font-semibold text-[#15803d]">اللغات:</span>
+            {{ teacher.languages.join(', ') }}
+          </p>
+
+          <!-- طريقة التدريس -->
+          <p class="text-sm text-gray-600 mb-4">
+            <span class="font-semibold text-[#15803d]">طريقة التدريس:</span>
+            {{ teacher.teachingModes.online ? 'أونلاين' : 'حضوري' }}
+          </p>
+
+          <!-- الأزرار -->
+          <div class="flex flex-col gap-2 mt-4">
+            <button class="bg-[#16a34a] text-white py-2 rounded-md hover:bg-[#22c55e] transition">احجز درس مجاني</button>
+            <a href="#" class="text-center border border-[#16a34a] text-[#16a34a] py-2 rounded-md hover:bg-[#f0fdf4] transition">عرض الملف الشخصي</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>

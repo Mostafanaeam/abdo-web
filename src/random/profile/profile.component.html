@@ -1,0 +1,45 @@
+<section class="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg mt-8 relative" *ngIf="teacher" dir="rtl">
+  <!-- زر إغلاق -->
+  <button (click)="closeProfile.emit()" class="absolute left-4 top-4 bg-gray-200 hover:bg-red-400 text-gray-700 hover:text-white rounded-full w-8 h-8 flex items-center justify-center text-lg">×</button>
+  <!-- فيديو تعريفي -->
+  <div class="bg-gray-200 h-48 flex items-center justify-center mb-4 rounded">فيديو تعريفي (placeholder)</div>
+  <div class="flex flex-col md:flex-row items-center gap-6 mb-6">
+    <img [src]="teacher.img" alt="{{teacher.name}}" class="w-28 h-28 rounded-full border-4 border-[#1dbf73]/30" />
+    <div>
+      <h2 class="text-2xl font-bold text-[#1dbf73] mb-2">{{ teacher.name }}</h2>
+      <div class="flex flex-wrap gap-2 mb-2">
+        <span *ngFor="let lang of teacher.languages" class="relative group cursor-pointer px-2 py-1 bg-[#e8ffe8] text-[#1dbf73] rounded">
+          {{ lang }}
+          <div class="absolute bottom-full mb-2 hidden group-hover:block bg-gray-700 text-white text-xs rounded px-2 py-1 whitespace-nowrap">
+            لغة التدريس: {{ lang }}
+          </div>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="mb-4">
+    <p class="mb-2"><strong>المؤهلات والخبرة:</strong> {{ teacher.bio || '—' }}</p>
+    <div class="mb-2 relative group cursor-help inline-block">
+      <strong>طريقة التدريس:</strong>
+      <span class="underline text-yellow-700">{{ teacher.teachingMethod }}</span>
+      <div class="absolute left-0 top-full mt-1 hidden group-hover:block bg-gray-700 text-white text-xs rounded px-2 py-1 max-w-xs">
+        وصف لطريقة التدريس: {{ teacher.teachingMethod }}
+      </div>
+    </div>
+  </div>
+  <div class="mb-4">
+    <p><strong>جدول التقويم والإتاحة:</strong></p>
+    <div class="bg-gray-100 p-4 rounded">جدول التقويم والإتاحة (placeholder)</div>
+  </div>
+  <div class="mb-4">
+    <p><strong>سعر الساعة:</strong> <span class="text-yellow-700 font-bold">{{ teacher.price }}</span></p>
+    <div class="relative group cursor-help inline-block">
+      <strong>المواد التي يدرسها:</strong>
+      <span class="underline text-[#1dbf73]">{{ teacher.subjects.join('، ') }}</span>
+      <div class="absolute left-0 top-full mt-1 hidden group-hover:block bg-gray-700 text-white text-xs rounded px-2 py-1 max-w-xs">
+        شرح المواد: {{ teacher.subjects.join('، ') }}
+      </div>
+    </div>
+  </div>
+  <button class="bg-[#1dbf73] text-white px-6 py-3 rounded font-semibold hover:bg-yellow-400 hover:text-[#1dbf73] transition mt-4">احجز أول درس مجاني</button>
+</section>

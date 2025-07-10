@@ -1,0 +1,25 @@
+<aside class="w-full md:w-64 bg-gradient-to-br from-[#e8ffe8] via-[#fffbe8] to-[#fff] p-4 rounded-lg shadow mb-6 md:mb-0 relative overflow-hidden" dir="rtl">
+  <!-- زخرفة -->
+  <div class="absolute -top-8 -left-8 w-24 h-24 bg-[#1dbf73]/20 rounded-full blur-2xl -z-10"></div>
+  <form [formGroup]="filterForm" (ngSubmit)="applyFilters()" class="flex flex-col gap-6 relative z-10">
+    <div *ngFor="let filter of filters">
+      <label class="block font-semibold text-[#1dbf73] mb-2">{{filter.label}}</label>
+      <div *ngIf="filter.type === 'radio'">
+        <div *ngFor="let opt of filter.options" class="flex items-center mb-2">
+          <input type="radio" [formControlName]="filter.name" [value]="opt.value" class="ml-2 accent-[#1dbf73]" id="{{filter.name}}-{{opt.value}}" />
+          <label [for]="filter.name + '-' + opt.value" class="text-gray-600">{{opt.label}}</label>
+        </div>
+      </div>
+      <div *ngIf="filter.type === 'checkbox'" [formGroupName]="filter.name">
+        <div *ngFor="let opt of filter.options" class="flex items-center mb-2">
+          <input type="checkbox" [formControlName]="opt.value" class="ml-2 accent-[#1dbf73]" id="{{filter.name}}-{{opt.value}}" />
+          <label [for]="filter.name + '-' + opt.value" class="text-gray-600">{{opt.label}}</label>
+        </div>
+      </div>
+    </div>
+    <div class="flex gap-4 mt-2">
+      <button type="submit" class="bg-[#1dbf73] text-white py-2 px-4 rounded hover:bg-yellow-400 hover:text-[#1dbf73]">تطبيق الفلاتر</button>
+      <button type="button" (click)="resetFilters()" class="text-yellow-700 underline text-sm">إعادة تعيين</button>
+    </div>
+  </form>
+</aside>
