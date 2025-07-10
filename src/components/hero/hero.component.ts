@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+
 
 interface Teacher {
   id: string;
@@ -22,7 +24,7 @@ join(arg0: string): unknown;
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule],
   templateUrl: './hero.component.html',
 })
 export class HeroComponent implements OnInit {
